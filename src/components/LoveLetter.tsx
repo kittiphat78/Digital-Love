@@ -29,10 +29,13 @@ export function LoveLetter({ onOpenComplete }: LoveLetterProps) {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, transition: { duration: 0.3, delay: 0.4 } }}
-            className="relative cursor-pointer"
+            className="relative cursor-pointer touch-manipulation"
             onClick={handleOpen}
+            onTap={handleOpen}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            role="button"
+            tabIndex={0}
           >
             {/* Envelope Floating Animation Wrapper */}
             <motion.div
@@ -46,6 +49,19 @@ export function LoveLetter({ onOpenComplete }: LoveLetterProps) {
               }}
               className="relative w-80 h-56 sm:w-96 sm:h-64"
             >
+              {/* iOS SAFARI FOOLPROOF TOUCH OVERLAY */}
+              {/* This invisible layer sits on top of everything to guarantee touches are caught immediately */}
+              <div 
+                className="absolute inset-0 z-[100] w-full h-full cursor-pointer"
+                onClick={(e) => { e.stopPropagation(); handleOpen(); }}
+                onTouchEnd={(e) => { 
+                  e.preventDefault(); // Stop iOS synthetic hover events
+                  e.stopPropagation();
+                  handleOpen(); 
+                }}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              />
+
               {/* Back of Envelope */}
               <div className="absolute inset-0 bg-[#c39e80] rounded-md shadow-2xl overflow-hidden">
                 <div className="absolute inset-0 bg-black/5" />
