@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface LetterContentProps {
   onComplete?: () => void;
@@ -12,7 +12,7 @@ const paragraphs = [
   "แต่เค้าจะบอกว่า การที่ได้คุยกับเธอเป็นเรื่องดีของทุกวันเลย 🤍",
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95, y: 20 },
   visible: {
     opacity: 1,
@@ -26,7 +26,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
